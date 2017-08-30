@@ -25,26 +25,7 @@ export class RegisterComponent implements OnInit {
     .then( res=>{
        console.log(res.uid);
      
-       this.userService.registerUser(value.name,value.email,res.uid).subscribe(res => {
-         console.log(res.json());
-         var response = res.json();
-
-         if(response.success){
-            this.router.navigateByUrl('/login');  
-         }else{
-            this.error = "Unknown error occured, contact customer support";
-             setTimeout(()=>{
-               // this.router.navigateByUrl('/register');
-               this.error = false;
-            } , 3000);
-         }
-
-         
-       
-       },e=>{
-          console.log(e);
-       });
-
+   
         
     
     }).catch(err => {

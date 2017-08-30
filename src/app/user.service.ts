@@ -1,28 +1,46 @@
 import { Injectable } from '@angular/core';
-import {Http} from '@angular/http';
+import {Http,Headers} from '@angular/http';
 import 'rxjs/add/operator/map';
 
 @Injectable()
 export class UserService {
 
-  constructor(private http : Http) { }
+  constructor(private http:Http) { }
 
+   getAllClients(){
+     return this.http.get("http://localhost:3000/client/getAllClients");
+   }
    
-  registerUser(name,email,uid){
-     
-    var data = {
-    	name: name,
-    	email : email,
-    	uid:uid
-    } 
+   addNewClient(data){
+      return this.http.post("http://localhost:3000/client/addClient",data);
+    }
 
-  	return this.http.post('/user/addUser',data)
-  } 
+    getOrdersByClientId(id){
+       var data = {
+         id :id
+       }
+      return this.http.post("http://localhost:3000/order/getOrdersbyClientId",data);
+    }
 
+    addNewOrder(id){
+      var data = {
+        id :id
+      }
+      return this.http.post('http://localhost:3000/order/addOrder',data);
+    }
 
-  getUserData(id){
-  	// make a route
-  	return this.http.get('/user/getUserData/'+id);
-  }
+    getBatteryModelsByOrderId(id){
+       var data = {
+         id :id
+       }
+
+       return this.http.post('http://localhost:3000/batteryModel/getBatteryModelsbyOrderId',data)
+     }
+
+     addNewBatteryModel(data){
+
+       return this.http.post('http://localhost:3000/batteryModel/addBatteryModel',data)
+
+     }
 
 }

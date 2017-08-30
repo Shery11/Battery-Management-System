@@ -8,6 +8,7 @@ var BatteryModelSchema = new Schema({
     model:{ type:String, required:true },
     volt : {type : String , required:true},
     amp : {type : String , required:true},
+    quantity : { type : String , required:true},
     createdAt:{ type: Date,default: Date.now}
 });
 

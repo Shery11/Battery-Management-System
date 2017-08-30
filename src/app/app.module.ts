@@ -17,17 +17,20 @@ import { HeaderComponent } from './header/header.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { EventComponent } from './event/event.component';
-import { StartupComponent } from './startup/startup.component';
 import { AboutComponent } from './about/about.component';
 import { DashboardHeaderComponent } from './dashboard-header/dashboard-header.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+
 
 // services
 import { AuthService } from './auth.service';
 import { AngularFireAuth } from 'angularfire2/auth';
 import {AuthGuardService} from './auth-guard.service';
 import {UserService} from './user.service';
+import { OrdersComponent } from './orders/orders.component';
+import { BatteryModelComponent } from './battery-model/battery-model.component';
+import { BatteryComponent } from './battery/battery.component';
 
 export const firebaseConfig = {
    apiKey: "AIzaSyBhoBZ9Zjr-5BySgE_sdIjVan_CA2b-rlM",
@@ -50,11 +53,13 @@ export const firebaseConfig = {
     SidebarComponent,
     PageNotFoundComponent,
     EventComponent,
-    StartupComponent,
     AboutComponent,
     DashboardHeaderComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    OrdersComponent,
+    BatteryModelComponent,
+    BatteryComponent
     
    
    
@@ -96,14 +101,27 @@ export const firebaseConfig = {
               component: EventComponent
             },
             {
-              path : 'startups',
-              component : StartupComponent
+              path : 'orders/:id',
+              component : OrdersComponent
+            },
+             {
+              path : 'orders/:id/:oid',
+              component : BatteryModelComponent
+            },
+            {
+              path : 'orders/:id/:oid/:mid',
+              component : BatteryComponent
+            },
+             {
+              path : 'orders/:id',
+              component : OrdersComponent
             },
             {
               path: 'about',
               component : AboutComponent
             },
-           ]
+           ] // this.route.snapshot.params['id']
+          //  import { Router, Params, ActivateRoute} from '@angular.router'
        },
         {
           path : 'login',

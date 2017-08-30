@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import {DataService} from './data.service';
 import { trigger,state,style,transition,animate,keyframes } from '@angular/animations';
 
 

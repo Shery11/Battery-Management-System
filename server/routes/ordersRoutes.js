@@ -11,7 +11,7 @@ router.post('/addOrder',function(req,res){
     
     var order = new Orders();
 
-    order.clientId = data.clientId;
+    order.clientId = data.id;
     
     // saving in to db and updating the client orders array
 	order.save(function(err,doc){

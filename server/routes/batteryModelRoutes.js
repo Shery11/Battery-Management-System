@@ -14,6 +14,7 @@ router.post('/addBatteryModel',function(req,res){
     batteryModel.model = data.model;
     batteryModel.volt = data.volt;
     batteryModel.amp = data.amp;
+    batteryModel.quantity = data.quantity;
     batteryModel.orderId = data.orderId;
     
     // saving in to db 

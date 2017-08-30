@@ -10,6 +10,10 @@ var BatteryRoutes = require('./routes/batteryRoutes');
 
 const app = express();
 
+
+var cors = require('./cors');
+app.use(cors.permission)
+
 // Parsers for POST data
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));

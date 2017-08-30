@@ -7,7 +7,7 @@ var Client = require('../models/client.js');
 router.post('/addClient',function(req,res){
 	console.log('inside addClient route')
 	var data = req.body;
-    
+    console.log(data);
     var client = new Client();
     // adding properties
 	client.name = data.name;
@@ -24,6 +24,8 @@ router.post('/addClient',function(req,res){
 });
 
 router.get('/getAllClients',function(req,res){
+  console.log("inside getAllClients route")
+
 	Client.find({},function(err,doc){
 		if(err){
 			res.json({success:false, data:err})
