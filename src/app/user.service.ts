@@ -43,4 +43,31 @@ export class UserService {
 
      }
 
+
+     getBatteriesByBatteryModelId(id){
+       var data = {
+         id:id
+       }
+       return this.http.post('http://localhost:3000/battery/getBattieriesByBatteryModelId',data)
+     }
+
+     addNewBattery(data){
+       return this.http.post('http://localhost:3000/battery/addBattery',data); 
+     }
+
+
+     getBatteryById(id){
+       var data = {
+         id:id
+       }
+       return this.http.post('http://localhost:3000/battery/getBattery',data);
+     }
+
+     addRegenerationDatabyId(data){
+
+       console.log(data);
+
+       return this.http.post('http://localhost:3000/battery/addRegenerationDatabyId',data)
+     }
+
 }

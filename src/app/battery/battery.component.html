@@ -1,3 +1,133 @@
 <p>
   battery works!
 </p>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+            <div class="row">
+                    <div class="col-lg-12">
+                
+                <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h4>List of all the Batteries </h4>
+                        <div class="ibox-tools">
+                        <button type="button" class="btn btn-primary btn-circle" data-toggle="modal" data-target="#myModal2">
+                              <i class="fa fa-plus"></i>  
+                            </button>
+                            <div class="modal inmodal" id="myModal2" tabindex="-1" role="dialog" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content animated flipInY">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                            <h4 class="modal-title">Add new Battery Model here</h4>
+                                            <small class="font-bold">Added data will go directly in to the database</small>
+                                        </div>
+                                        <div class="modal-body">
+                                         <div class="row">
+                                                <div class="col-sm-6 b-r"><h3 class="m-t-none m-b">Battery Model Data</h3>
+
+                                                    <p>Add battery Model data.</p>
+
+                                                    <form role="form" #dataForm = "ngForm" (ngSubmit) = "add(dataForm.value)">
+
+                                                        <div class="form-group"><label>Battery Serial #</label> <input type="text" placeholder="Battery Serial #" class="form-control" name="bs" ngModel></div>
+
+                                                        <div class="form-group"><label>Lab Serial #</label> <input type="text" placeholder="Lab Serial #" class="form-control" name="ls" ngModel></div>
+
+                                                        <div>
+                                                       
+                                                            <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><strong>submit</strong></button>
+                                                           
+                                                        </div>
+                                                    </form>
+
+
+                                                </div>
+                                                <div class="col-sm-6"><h4>Don't know what this is?</h4>
+                                                    <p>Better logout then</p>
+                                                    <p class="text-center">
+                                                        <a href=""><i class="fa fa-database big-icon"></i></a>
+                                                    </p>
+                                                 </div>
+                                        </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                <i class="fa fa-wrench"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user">
+                                <li><a href="#">Config option 1</a>
+                                </li>
+                                <li><a href="#">Config option 2</a>
+                                </li>
+                            </ul>
+                            <a class="close-link">
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover dataTables-example" >
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Battery Serial #</th>
+                        <th>Lab Serial #</th>
+                        <th>Charging</th>
+                        <th>Regeneration</th>
+                        <th>Discharging</th>
+                        <th>Created At</th>
+                        <th>Edit</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="gradeX" *ngFor="let battery of batteries">
+                        <td>{{battery._id}}</td>
+                        <td>{{battery.batterySerialNo}}</td>
+                        <td>{{battery.labSerialNo}}</td>
+                        <td>{{battery.charging}}</td>
+                        <td>{{battery.regeneration}}</td>
+                        <td>{{battery.discharging}}</td>
+                         <td class="center">{{battery.createdAt| date:"yMdjm"}}</td>
+                        <td class="center"><a  [routerLink]="['/dashboard/orders/'+ id +'/'+ oid+'/'+ mid + '/' + battery._id ]"><button class="btn btn-primary" type="button" ><i class="fa fa-wrench"></i></button></a></td>
+                       
+                    </tr>
+                    </tbody>
+                    <tfoot>
+                     <tr>
+                        
+                        <th>ID</th>
+                        <th>Battery Serial #</th>
+                        <th>Lab Serial #</th>
+                        <th>Charging</th>
+                        <th>Regeneration</th>
+                        <th>Discharging</th>
+                        <th>Created At</th>
+                        <th>Edit</th>
+                    
+                    </tr>
+                    </tfoot>
+                    </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+
+
+
+
+

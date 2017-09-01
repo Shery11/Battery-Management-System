@@ -7,8 +7,6 @@ var Battery = require('../models/battery.js');
 router.post('/addBattery',function(req,res){
 	console.log('inside addBattery route');
 	var data = req.body;
-
-
     
     var battery = new Battery();
 
@@ -82,6 +80,35 @@ router.post('/getBattieriesByBatteryModelId',function(req,res){
 		}else{
            res.json({success:true,data:doc})
 		}
+	})
+})
+
+
+router.post('/addRegenerationDatabyId',function(req,res){
+	
+	console.log('inside addRegenerationDatabyId')
+	var data = req.body;
+
+	console.log(data);
+
+	data.createdAt = new Date();
+	console.log(data);
+
+	var reg = {
+		v : data.v,
+		i : data.i,
+		ir : data.ir,
+		chargingTime : data.chargingTime
+	}
+    
+
+    Battery.findOneAndUpdate({ _id : data.id},{$push:{regeneration:reg}},{new: true},function(err,battery){
+        if(err){
+        	console.log('error occured');
+          res.json({success:false,data:err})
+        }else{
+          res.json({success:true, data: battery})
+        }
 	})
 })
 

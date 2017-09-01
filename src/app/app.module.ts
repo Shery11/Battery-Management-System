@@ -31,6 +31,7 @@ import {UserService} from './user.service';
 import { OrdersComponent } from './orders/orders.component';
 import { BatteryModelComponent } from './battery-model/battery-model.component';
 import { BatteryComponent } from './battery/battery.component';
+import { SingleBatteryComponent } from './single-battery/single-battery.component';
 
 export const firebaseConfig = {
    apiKey: "AIzaSyBhoBZ9Zjr-5BySgE_sdIjVan_CA2b-rlM",
@@ -59,7 +60,8 @@ export const firebaseConfig = {
     RegisterComponent,
     OrdersComponent,
     BatteryModelComponent,
-    BatteryComponent
+    BatteryComponent,
+    SingleBatteryComponent
     
    
    
@@ -112,16 +114,15 @@ export const firebaseConfig = {
               path : 'orders/:id/:oid/:mid',
               component : BatteryComponent
             },
-             {
-              path : 'orders/:id',
-              component : OrdersComponent
+            {
+               path : 'orders/:id/:oid/:mid/:bid',
+               component : SingleBatteryComponent
             },
             {
               path: 'about',
               component : AboutComponent
             },
-           ] // this.route.snapshot.params['id']
-          //  import { Router, Params, ActivateRoute} from '@angular.router'
+           ] 
        },
         {
           path : 'login',
