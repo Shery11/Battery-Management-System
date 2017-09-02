@@ -1,5 +1,5 @@
 <p>
-  profile works!
+  order works!
 </p>
 
   <div class="wrapper wrapper-content animated fadeInRight">
@@ -11,7 +11,9 @@
                     <div class="ibox-title">
                         <h4>List of all the Orders </h4>
                         <div class="ibox-tools">
-                        <button type="button" class="btn btn-primary btn-circle" data-toggle="modal" data-target="#myModal2">
+                         <input type="text" class="form-control" placeholder="Search here" [(ngModel)]="term">
+                       
+                        <button style="margin-top: 5px;" type="button" class="btn btn-primary btn-circle" data-toggle="modal" data-target="#myModal2">
                               <i class="fa fa-plus"></i>  
                             </button>
                             <div class="modal inmodal" id="myModal2" tabindex="-1" role="dialog" aria-hidden="true">
@@ -85,10 +87,10 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr class="gradeX" *ngFor="let order of orders">
+                    <tr class="gradeX" *ngFor="let order of orders | filter : term">
                         <td>{{order._id}}</td>
                         <td>{{order.clientId.name}}</td>
-                        <td class="center"><a [routerLink]="['/dashboard/orders/'+ id +'/'+ order._id ]" > <button class="btn btn-primary btn-circle" type="button" ><i class="fa fa-plus"></i></button></a></td>
+                        <td class="center"><a [routerLink]="['/dashboard/orders/'+ id +'/'+ order._id ]" > <button class="btn btn-primary" type="button" ><i class="fa fa-sign-in"></i></button></a></td>
                         <td class="center">{{order.createdAt| date:"yMdjm"}}</td>
                     </tr>
                     </tbody>

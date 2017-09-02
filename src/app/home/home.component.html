@@ -8,7 +8,9 @@
                     <div class="ibox-title">
                         <h4>List of all the Clients</h4>
                         <div class="ibox-tools">
-                        <button type="button" class="btn btn-primary btn-circle" data-toggle="modal" data-target="#myModal2">
+                         <input type="text" class="form-control" placeholder="Search here" [(ngModel)]="term">
+                       
+                        <button style="margin-top: 5px;" type="button" class="btn btn-primary btn-circle" data-toggle="modal" data-target="#myModal2">
                               <i class="fa fa-plus"></i>  
                             </button>
                             <div class="modal inmodal" id="myModal2" tabindex="-1" role="dialog" aria-hidden="true">
@@ -55,7 +57,7 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
-                                            <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+                                            
                                         </div>
                                     </div>
                                 </div>
@@ -92,7 +94,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr class="gradeX" *ngFor="let client of clients">
+                    <tr class="gradeX" *ngFor="let client of clients | filter:term">
                         <td>{{client._id}}</td>
                         <td>{{client.name}}</td>
                         <td class="center">{{client.phone}}</td>
@@ -101,7 +103,7 @@
                          <b>City:</b>{{client.address.city}}
                          <b>State:</b>{{client.address.state}}
                          </td>
-                        <td class="center"><a [routerLink]="['/dashboard/orders/'+ client._id ]"><button class="btn btn-primary btn-circle" type="button"><i class="fa fa-th"></i></button></a></td>
+                        <td class="center"><a [routerLink]="['/dashboard/orders/'+ client._id ]"><button class="btn btn-primary" type="button"><i class="fa fa-th"></i></button></a></td>
 
                         <td class="center">{{client.createdAt| date:"yMdjm"}}</td>
                     </tr>

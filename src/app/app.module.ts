@@ -33,6 +33,9 @@ import { BatteryModelComponent } from './battery-model/battery-model.component';
 import { BatteryComponent } from './battery/battery.component';
 import { SingleBatteryComponent } from './single-battery/single-battery.component';
 
+
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+
 export const firebaseConfig = {
    apiKey: "AIzaSyBhoBZ9Zjr-5BySgE_sdIjVan_CA2b-rlM",
     authDomain: "battery-managment-system.firebaseapp.com",
@@ -71,6 +74,7 @@ export const firebaseConfig = {
     BrowserAnimationsModule,
     FormsModule,
     HttpModule,
+    Ng2SearchPipeModule,
     AngularFireModule.initializeApp(firebaseConfig),
     CookieModule.forRoot(),
     RouterModule.forRoot([

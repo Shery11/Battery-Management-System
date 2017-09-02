@@ -14,6 +14,7 @@ import { UserService } from '../user.service';
 export class LoginComponent implements OnInit {
 
 	error;
+  bar = false;
  
   ngOnInit() {
   }
@@ -22,13 +23,16 @@ export class LoginComponent implements OnInit {
    constructor(public authService: AuthService,private router:Router,private cookie : CookieService,private userService : UserService) {}
 
 	  onSubmit(value) {
+
+      this.bar = true;
 	    
 	    this.authService.login(value.email, value.password).then(res => {
         this.router.navigateByUrl('/dashboard');
         console.log(res.uid);
         this.cookie.put('token',res.uid);
-      }).catch(err => {
 
+      }).catch(err => {
+         this.bar = false
         this.error = err.message
         setTimeout(()=>{
            this.error = false;

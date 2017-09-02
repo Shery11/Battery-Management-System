@@ -10,8 +10,9 @@
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
                         <h4>List of all the Batteries </h4>
+                        <input type="text" class="form-control" placeholder="Search here" [(ngModel)]="term">
                         <div class="ibox-tools">
-                        <button type="button" class="btn btn-primary btn-circle" data-toggle="modal" data-target="#myModal2">
+                        <button style="margin-top: 5px;" type="button" class="btn btn-primary btn-circle" data-toggle="modal" data-target="#myModal2">
                               <i class="fa fa-plus"></i>  
                             </button>
                             <div class="modal inmodal" id="myModal2" tabindex="-1" role="dialog" aria-hidden="true">
@@ -84,23 +85,23 @@
                         <th>ID</th>
                         <th>Battery Serial #</th>
                         <th>Lab Serial #</th>
-                        <th>Charging</th>
+                      <!--   <th>Charging</th>
                         <th>Regeneration</th>
-                        <th>Discharging</th>
+                        <th>Discharging</th> -->
                         <th>Created At</th>
                         <th>Edit</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr class="gradeX" *ngFor="let battery of batteries">
+                    <tr class="gradeX" *ngFor="let battery of batteries |filter:term">
                         <td>{{battery._id}}</td>
                         <td>{{battery.batterySerialNo}}</td>
                         <td>{{battery.labSerialNo}}</td>
-                        <td>{{battery.charging}}</td>
+                       <!--  <td>{{battery.charging}}</td>
                         <td>{{battery.regeneration}}</td>
-                        <td>{{battery.discharging}}</td>
+                        <td>{{battery.discharging}}</td> -->
                          <td class="center">{{battery.createdAt| date:"yMdjm"}}</td>
-                        <td class="center"><a  [routerLink]="['/dashboard/orders/'+ id +'/'+ oid+'/'+ mid + '/' + battery._id ]"><button class="btn btn-primary" type="button" ><i class="fa fa-wrench"></i></button></a></td>
+                        <td class="center"><a  [routerLink]="['/dashboard/orders/'+ id +'/'+ oid+'/'+ mid + '/' + battery._id ]"><button class="btn btn-primary" type="button" ><i class="fa fa-cog"></i></button></a></td>
                        
                     </tr>
                     </tbody>
@@ -110,9 +111,9 @@
                         <th>ID</th>
                         <th>Battery Serial #</th>
                         <th>Lab Serial #</th>
-                        <th>Charging</th>
+                       <!--  <th>Charging</th>
                         <th>Regeneration</th>
-                        <th>Discharging</th>
+                        <th>Discharging</th> -->
                         <th>Created At</th>
                         <th>Edit</th>
                     
