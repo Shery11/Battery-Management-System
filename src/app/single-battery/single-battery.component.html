@@ -126,17 +126,20 @@
                            </thead>
                            <tbody>
 	                           <tr *ngFor="let reg of regeneration">
-	                              <td>{{reg.v}}</td>
+	                            <td>{{reg.v}}</td>
 		                          <td>{{reg.i}}</td>
 		                          <td>{{reg.ir}}</td>
 		                          <td>{{reg.chargingTime}}</td>
 		                          <td>{{reg.createdAt | date:"yMdjm"}}</td>
 	                           </tr>
 	                           <tr class="center">
+                             <td>
 	                           	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal2">
 	                              <i class="fa fa-plus"></i>  
 	                            </button>
+                              </td>
 	                           </tr>
+
                            </tbody>
 
                            </table>
@@ -146,32 +149,41 @@
                            </div>
 
 
-                                  <div class="ibox-content">
+                  <div class="ibox-content">
 
                      <div class="table-responsive">
                          <h1>Charging</h1>
                          <table class="table table-striped table-bordered table-hover dataTables-example">
                            <thead>
                            <tr>
-                           	<td>V</td>
-                           	<td>I</td>
-                           	<td>IR</td>
-                           	<td>Charging Time</td>
-                           	<td>Created At</td>
+                            <td>Start V</td>
+                            <td>End V</td>
+                            <td>Start I</td>
+                            <td>End I</td>
+                            <td>Start Time</td>
+                            <td>End Time</td>
+                            <td>Charger Used</td>
+                            <td>Created At</td>
                            </tr>
                            </thead>
                            <tbody>
-	                           <tr *ngFor="let reg of regeneration">
-	                              <td>{{reg.v}}</td>
-		                          <td>{{reg.i}}</td>
-		                          <td>{{reg.ir}}</td>
-		                          <td>{{reg.chargingTime}}</td>
-		                          <td>{{reg.createdAt | date:"yMdjm"}}</td>
+	                           <tr *ngFor="let charge of charging">
+	                            <td>{{charge.startVoltage}}</td>
+                              <td>{{charge.endVoltage}}</td>
+                              <td>{{charge.startCurrent}}</td>
+                              <td>{{charge.endCurrent}}</td>
+                              <td>{{charge.startTime}}</td>
+                              <td>{{charge.endTime}}</td>
+                              <td>{{charge.charger}}</td>
+                              <td>
+                              {{charge.createdAt | date:"yMdjm"}}</td>
 	                           </tr>
 	                           <tr class="center">
+                             <td>
 	                           	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal3">
 	                              <i class="fa fa-plus"></i>  
 	                            </button>
+                              </td>
 	                           </tr>
                            </tbody>
 
@@ -189,25 +201,36 @@
                          <table class="table table-striped table-bordered table-hover dataTables-example">
                            <thead>
                            <tr>
-                           	<td>V</td>
-                           	<td>I</td>
-                           	<td>IR</td>
-                           	<td>Charging Time</td>
-                           	<td>Created At</td>
+                           	<td>Start V</td>
+                           	<td>End V</td>
+                           	<td>Start I</td>
+                           	<td>End I</td>
+                            <td>Start Time</td>
+                            <td>End Time</td>
+                            <td>Discharger Used</td>
+                            <td>Capacity</td>
+                            <td>Created At</td>
                            </tr>
                            </thead>
                            <tbody>
-	                           <tr *ngFor="let reg of regeneration">
-	                              <td>{{reg.v}}</td>
-		                          <td>{{reg.i}}</td>
-		                          <td>{{reg.ir}}</td>
-		                          <td>{{reg.chargingTime}}</td>
-		                          <td>{{reg.createdAt | date:"yMdjm"}}</td>
+	                           <tr *ngFor="let dis of discharging">
+	                            <td>{{dis.startVoltage}}</td>
+		                          <td>{{dis.endVoltage}}</td>
+		                          <td>{{dis.startCurrent}}</td>
+		                          <td>{{dis.endCurrent}}</td>
+                              <td>{{dis.startTime}}</td>
+                              <td>{{dis.endTime}}</td>
+                              <td>{{dis.discharger}}</td>
+                              <td>{{dis.capacity}} %</td>
+		                          <td>
+                              {{dis.createdAt | date:"yMdjm"}}</td>
 	                           </tr>
 	                           <tr class="center">
+                             <td>
 	                           	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal4">
 	                              <i class="fa fa-plus"></i>  
 	                            </button>
+                              </td>
 	                           </tr>
                            </tbody>
 
@@ -291,21 +314,38 @@
                                         </div>
                                         <div class="modal-body">
                                          <div class="row">
-                                                <div class="col-sm-6 b-r"><h3 class="m-t-none m-b">Battery Regeneration Data</h3>
+                                                <div class="col-sm-6 b-r"><h3 class="m-t-none m-b">Battery Charging Data</h3>
 
-                                                    <p>Add battery Discharging data.</p>
+                                                    <p>Add battery Charging data.</p>
 
-                                                    <form role="form" #dataForm = "ngForm" (ngSubmit) = "regenerationData(dataForm.value)">
+                                                    <form role="form" #dataForm1 = "ngForm" (ngSubmit) = "chargingData(dataForm1.value)">
 
-                                                        <div class="form-group"><label>V</label> <input type="text" placeholder="V" class="form-control" name="v" ngModel></div>
+                                                        <div class="form-group"><label>Start V</label> <input type="text" placeholder="Start V" class="form-control" name="sv" ngModel></div>
 
-                                                         <div class="form-group"><label>I</label> <input type="text" placeholder="I" class="form-control" name="i" ngModel></div>
+                                                        <div class="form-group"><label>End V</label> <input type="text" placeholder="End V" class="form-control" name="ev" ngModel></div>
 
-                                                        <div class="form-group"><label>IR</label> <input type="text" placeholder="IR" class="form-control" name="ir" ngModel></div>
+                                                         <div class="form-group"><label>Start I</label> <input type="text" placeholder="Start I" class="form-control" name="sc" ngModel></div>
 
-                                                         <div class="form-group"><label>Charging Time</label> <input type="text" placeholder="Charging Time" class="form-control" name="chargingTime" ngModel></div>
+                                                         <div class="form-group"><label>End I</label> <input type="text" placeholder="End I" class="form-control" name="ec" ngModel></div>
 
-                                                        <div>
+                                                        <div class="form-group"><label>Start Time</label> <input type="text" placeholder="Start Time" class="form-control" name="st" ngModel></div>
+
+                                                        <div class="form-group"><label>End Time</label> <input type="text" placeholder="End Time" class="form-control" name="et" ngModel></div>
+
+                                                         
+                                                          <div class="form-group"><label>Charger Used</label><select class="form-control m-b" name="c" ngModel>
+                                                          <option>Gravity 1</option>
+                                                          <option>Gravity 2</option>
+                                                          <option>Gravity 3</option>
+                                                          <option>Gravity 4</option>
+                                                          <option>Gravity 5</option>
+                                                          <option>Gravity 6</option>
+
+                                                         
+                                                          </select>
+                                                          </div>
+                                               
+                                                         <div>
                                                        
                                                             <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><strong>submit</strong></button>
                                                            
@@ -342,19 +382,40 @@
                                         </div>
                                         <div class="modal-body">
                                          <div class="row">
-                                                <div class="col-sm-6 b-r"><h3 class="m-t-none m-b">Battery Regeneration Data</h3>
+                                                <div class="col-sm-6 b-r"><h3 class="m-t-none m-b">Battery Discharging Data</h3>
 
-                                                    <p>Add battery Regeneration data.</p>
+                                                    <p>Add battery Discharging data.</p>
 
-                                                    <form role="form" #dataForm = "ngForm" (ngSubmit) = "regenerationData(dataForm.value)">
+                                                    <form role="form" #dataForm2 = "ngForm" (ngSubmit) = "dischargingData(dataForm2.value)">
 
-                                                        <div class="form-group"><label>V</label> <input type="text" placeholder="V" class="form-control" name="v" ngModel></div>
+                                                        <div class="form-group"><label>Start V</label> <input type="text" placeholder="Start V" class="form-control" name="sv" ngModel></div>
 
-                                                         <div class="form-group"><label>I</label> <input type="text" placeholder="I" class="form-control" name="i" ngModel></div>
+                                                        <div class="form-group"><label>End V</label> <input type="text" placeholder="End V" class="form-control" name="ev" ngModel></div>
 
-                                                        <div class="form-group"><label>IR</label> <input type="text" placeholder="IR" class="form-control" name="ir" ngModel></div>
+                                                         <div class="form-group"><label>Start I</label> <input type="text" placeholder="Start I" class="form-control" name="sc" ngModel></div>
 
-                                                         <div class="form-group"><label>Charging Time</label> <input type="text" placeholder="Charging Time" class="form-control" name="chargingTime" ngModel></div>
+                                                         <div class="form-group"><label>End I</label> <input type="text" placeholder="End I" class="form-control" name="ec" ngModel></div>
+
+                                                        <div class="form-group"><label>Start Time</label> <input type="text" placeholder="Start Time" class="form-control" name="st" ngModel></div>
+
+                                                        <div class="form-group"><label>End Time</label> <input type="text" placeholder="End Time" class="form-control" name="et" ngModel></div>
+
+                                                        <div class="form-group"><label>Charger Used</label><select class="form-control m-b" name="d" ngModel>
+                                                          <option>Gravity 1</option>
+                                                          <option>Gravity 2</option>
+                                                          <option>Gravity 3</option>
+                                                          <option>Gravity 4</option>
+                                                          <option>Gravity 5</option>
+                                                          <option>Gravity 6</option>
+
+                                                         
+                                                        </select>
+                                                        </div>
+
+                                                          <div class="form-group"><label>Capacity</label> <input type="text" placeholder="Capacity in %" class="form-control" name="c" ngModel></div>
+
+
+
 
                                                         <div>
                                                        

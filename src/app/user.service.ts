@@ -70,4 +70,20 @@ export class UserService {
        return this.http.post('http://localhost:3000/battery/addRegenerationDatabyId',data)
      }
 
+     addDischargingDatabyId(data){
+
+       console.log(data);
+
+       return this.http.post('http://localhost:3000/battery/addDischargingDatabyId',data)
+     }
+
+
+     addChargingDatabyId(data){
+
+        console.log(data);
+
+       return this.http.post('http://localhost:3000/battery/addChargingDatabyId',data)
+
+     }
+
 }

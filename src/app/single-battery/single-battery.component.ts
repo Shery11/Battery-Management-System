@@ -29,9 +29,11 @@ export class SingleBatteryComponent implements OnInit {
      	if(data.success){
            this.battery = data.data;
            this.regeneration = data.data.regeneration;
+           this.discharging = data.data.discharging;
+           this.charging = data.data.charging;
            this.isDataAvailable = true;
 
-           console.log(this.battery,this.regeneration);
+           console.log(this.battery,this.regeneration,this.charging,this.discharging);
      	}else{
 
      		console.log('unable to get the battery data')
@@ -53,12 +55,54 @@ export class SingleBatteryComponent implements OnInit {
   	this.userService.addRegenerationDatabyId(value).map(res => res.json()).subscribe(data=>{
          console.log(data);
      	if(data.success){
-          
+          window.location.reload();        
         }else{
 
      		console.log('unable to get the battery data')
 
      	}
+
+     },err=>{
+        console.log(err);
+     })
+  }
+
+
+  dischargingData(value){
+    
+
+    value.id = this.bid;
+    console.log(value);
+    this.userService.addDischargingDatabyId(value).map(res => res.json()).subscribe(data=>{
+         console.log(data);
+       if(data.success){
+          window.location.reload();        
+        }else{
+
+         console.log('unable to get the battery data')
+
+       }
+
+     },err=>{
+        console.log(err);
+     })
+  }
+
+
+   chargingData(value){
+    
+
+    value.id = this.bid;
+    console.log(value);
+    this.userService.addChargingDatabyId(value).map(res => res.json()).subscribe(data=>{
+         console.log(data);
+       if(data.success){
+          window.location.reload();        
+        }else{
+
+         console.log('unable to get the battery data')
+
+       }
 
      },err=>{
         console.log(err);

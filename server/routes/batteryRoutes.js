@@ -110,7 +110,78 @@ router.post('/addRegenerationDatabyId',function(req,res){
           res.json({success:true, data: battery})
         }
 	})
-})
+});
+
+
+router.post('/addChargingDatabyId',function(req,res){
+	
+	console.log('inside addChargingDatabyId')
+	var data = req.body;
+
+	console.log(data);
+
+	data.createdAt = new Date();
+	console.log(data);
+
+	var reg = {
+		startVoltage : data.sv,
+        endVoltage : data.ev,
+        startCurrent : data.sc,
+        endCurrent : data.ec,
+        startTime : data.st,
+        endTime : data.et,
+        charger : data.c,
+        createdAt: data.createdAt
+	}
+    
+
+    Battery.findOneAndUpdate({ _id : data.id},{$push:{charging:reg}},{new: true},function(err,battery){
+        if(err){
+        	console.log('error occured');
+          res.json({success:false,data:err})
+        }else{
+          res.json({success:true, data: battery})
+        }
+	})
+});
+
+
+router.post('/addDischargingDatabyId',function(req,res){
+	
+	console.log('inside addDischargingDatabyId')
+	var data = req.body;
+
+	console.log(data);
+
+	data.createdAt = new Date();
+	console.log(data);
+
+	var discharge = {
+		
+		startVoltage : data.sv,
+        endVoltage : data.ev,
+        startCurrent : data.sc,
+        endCurrent : data.ec,
+        startTime : data.st,
+        endTime : data.et,
+        discharger : data.d,
+        capacity : data.c,
+        createdAt: data.createdAt
+	
+	}
+
+	console.log(discharge)
+    
+
+    Battery.findOneAndUpdate({ _id : data.id},{$push:{discharging:discharge}},{new: true},function(err,battery){
+        if(err){
+        	console.log('error occured');
+          res.json({success:false,data:err})
+        }else{
+          res.json({success:true, data: battery})
+        }
+	})
+});
 
 
 
