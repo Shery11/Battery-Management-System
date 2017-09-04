@@ -25,11 +25,23 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'dist')));
 
 // connecting mongo
-mongoose.connect('mongodb://localhost/BMS', {
-  useMongoClient: true,
-  /* other options */
-}).then(function(db){
-	console.log('Connected to database');
+// mongoose.connect('mongodb://localhost/BMS', {
+//   useMongoClient: true,
+//    // other options 
+// }).then(function(db){
+// 	console.log('Connected to database');
+// });
+
+
+mongoose.connect('mongodb://dms:laughnplay@ds125914.mlab.com:25914/bms');
+
+mongoose.connection.on('connected', function () {  
+  console.log('connection successful');
+}); 
+
+// If the connection throws an error
+mongoose.connection.on('error',function (err) {  
+  console.log('Mongoose default connection error: ' + err);
 });
 
 app.use(helmet());
