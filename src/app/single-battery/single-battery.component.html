@@ -117,20 +117,61 @@
                          <table class="table table-striped table-bordered table-hover dataTables-example">
                            <thead>
                            <tr>
-                           	<td>V</td>
-                           	<td>I</td>
-                           	<td>IR</td>
-                           	<td>Charging Time</td>
-                           	<td>Created At</td>
+                           	<td>Start Date</td>
+                           	<td>End Date</td>
+                           	<td>Program Auto</td>
+                           	<td>Program Manual</td>
+                            <td>Pulse</td>
+                            <td>Pause</td>
+                            <td>Charge program</td>
+                            <td>Charge Time</td>
+                            <td>Created At</td>
+                            <td></td>
                            </tr>
                            </thead>
+
+
+                           <!--edit regeneration  -->
+
+                            <tbody>
+                             <tr>
+                              <td>{{regEdit.startDate}}</td>
+                              <td>{{regEdit.endDate}}</td>
+                              <td>{{regEdit.programAuto}}</td>
+                              <td>{{regEdit.programManual}}</td>
+                              <td>{{regEdit.pulse}}</td>
+                              <td>{{regEdit.pause}}</td>
+                              <td>{{regEdit.chargeProgram}}</td>
+                              <td>{{regEdit.chargeTime}}</td>
+                              <td>{{regEdit.createdAt | date:"yMdjm"}}</td>
+                             </tr>
+                             <tr class="center">
+                             <td>
+                              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal2">
+                                Save 
+                              </button>
+                              </td>
+                             </tr>
+
+                           </tbody>
+                                 
+                          <!--  -->
                            <tbody>
 	                           <tr *ngFor="let reg of regeneration">
-	                            <td>{{reg.v}}</td>
-		                          <td>{{reg.i}}</td>
-		                          <td>{{reg.ir}}</td>
-		                          <td>{{reg.chargingTime}}</td>
+	                            <td>{{reg.startDate}}</td>
+                              <td>{{reg.endDate}}</td>
+                              <td>{{reg.programAuto}}</td>
+                              <td>{{reg.programManual}}</td>
+		                          <td>{{reg.pulse}}</td>
+		                          <td>{{reg.pause}}</td>
+                              <td>{{reg.chargeProgram}}</td>
+		                          <td>{{reg.chargeTime}}</td>
 		                          <td>{{reg.createdAt | date:"yMdjm"}}</td>
+                              <td>
+                                <button type="button" class="btn btn-primary">
+                                  Edit  
+                                </button>
+                              </td>
 	                           </tr>
 	                           <tr class="center">
                              <td>
@@ -270,13 +311,21 @@
 
                                                     <form role="form" #dataForm = "ngForm" (ngSubmit) = "regenerationData(dataForm.value)">
 
-                                                        <div class="form-group"><label>V</label> <input type="text" placeholder="V" class="form-control" name="v" ngModel></div>
+                                                        <div class="form-group"><label>Start Date</label> <input type="text" placeholder="Start Date" class="form-control" name="startDate" ngModel></div>
 
-                                                         <div class="form-group"><label>I</label> <input type="text" placeholder="I" class="form-control" name="i" ngModel></div>
+                                                         <div class="form-group"><label>End Date</label> <input type="text" placeholder="End Date" class="form-control" name="endDate" ngModel></div>
 
-                                                        <div class="form-group"><label>IR</label> <input type="text" placeholder="IR" class="form-control" name="ir" ngModel></div>
+                                                        <div class="form-group"><label>Program Auto</label> <input type="text" placeholder="Program Auto" class="form-control" name="programAuto" ngModel></div>
 
-                                                         <div class="form-group"><label>Charging Time</label> <input type="text" placeholder="Charging Time" class="form-control" name="chargingTime" ngModel></div>
+                                                        <div class="form-group"><label>Program Manual</label> <input type="text" placeholder="Program Manual" class="form-control" name="programManual" ngModel></div>
+                                                        
+                                                        <div class="form-group"><label>Pulse</label> <input type="text" placeholder="Pulse" class="form-control" name="pulse" ngModel></div>
+                                                        
+                                                        <div class="form-group"><label>Pause</label> <input type="text" placeholder="Pause" class="form-control" name="pause" ngModel></div>
+                                                        
+                                                        <div class="form-group"><label>Charge Program</label> <input type="text" placeholder="Charge Program" class="form-control" name="chargeProgram" ngModel></div>
+
+                                                         <div class="form-group"><label>Charge Time</label> <input type="text" placeholder="Charge Time" class="form-control" name="chargeTime" ngModel></div>
 
                                                         <div>
                                                        

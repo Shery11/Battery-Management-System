@@ -9,10 +9,9 @@ router.post('/addOrder',function(req,res){
 	console.log('inside addOrder route');
 	var data = req.body;
     
-    var order = new Orders();
+    var order = new Orders(data);
 
-    order.clientId = data.id;
-    
+    console.log(order);
     // saving in to db and updating the client orders array
 	order.save(function(err,doc){
 		if(err){

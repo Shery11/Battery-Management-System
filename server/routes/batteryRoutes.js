@@ -92,13 +92,18 @@ router.post('/addRegenerationDatabyId',function(req,res){
 	console.log(data);
 
 	data.createdAt = new Date();
-	console.log(data);
 
 	var reg = {
-		v : data.v,
-		i : data.i,
-		ir : data.ir,
-		chargingTime : data.chargingTime
+
+		startDate :data.startDate,
+        endDate : data.endDate,
+        programAuto : data.programAuto,
+        programManual : data.programManual,
+        pulse : data.pulse,
+    	pause : data.pause,
+    	chargeProgram : data.chargeProgram,
+    	chargeTime : data.chargeTime,
+    	
 	}
     
 

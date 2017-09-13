@@ -35,14 +35,15 @@ export class HomeComponent implements OnInit {
   	console.log(value);
 
   	var data = {
-       name : value.name,
-       phone : value.phone,
-       address : {
-         area : value.area,
-         city : value.city,
-         state : value.state	
-       }
-  	}
+      name: value.name,
+      contactPerson : value.contactPerson,
+      jobTitle : value.jobTitle,
+      contactNumber : value.contactNumber,
+      mobileNumber : value.mobileNumber,
+      address : value.address
+    }
+    
+    console.log(data);
 
   	 this.userService.addNewClient(data).map(res=> res.json()).subscribe(data=>{
   	 	console.log(data);

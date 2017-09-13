@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import {CookieService } from 'ngx-cookie';
 import { UserService } from '../user.service';
 
+declare var jquery:any;
+declare var $ :any;
 
 @Component({
   selector: 'app-login',
@@ -16,13 +18,18 @@ export class LoginComponent implements OnInit {
 	error;
   bar = false;
  
+ 
   ngOnInit() {
+
+
   }
 
 
    constructor(public authService: AuthService,private router:Router,private cookie : CookieService,private userService : UserService) {}
 
-	  onSubmit(value) {
+	
+
+    onSubmit(value) {
 
       this.bar = true;
 	    

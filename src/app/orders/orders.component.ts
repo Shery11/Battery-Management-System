@@ -34,7 +34,12 @@ export class OrdersComponent implements OnInit {
 
 
   add(value){
-    this.userService.addNewOrder(this.id).map(res => res.json()).subscribe(data=>{
+
+    value.clientId = this.id;
+    console.log(value);
+
+    this.userService.addNewOrder(value).map(res => res.json()).subscribe(data=>{
+      console.log(data);
        if(data.success){
            window.location.reload();
        }else{

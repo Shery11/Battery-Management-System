@@ -22,10 +22,9 @@ export class UserService {
       return this.http.post("http://localhost:3000/order/getOrdersbyClientId",data);
     }
 
-    addNewOrder(id){
-      var data = {
-        id :id
-      }
+    addNewOrder(data){
+      console.log(data);
+      
       return this.http.post('http://localhost:3000/order/addOrder',data);
     }
 

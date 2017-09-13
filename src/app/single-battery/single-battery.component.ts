@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit, ViewChild} from '@angular/core';
 import { Router, Params ,ActivatedRoute} from '@angular/router'
 import { UserService } from '../user.service';
 
@@ -18,6 +18,8 @@ export class SingleBatteryComponent implements OnInit {
    charging;
    discharging;
    isDataAvailable = false;
+
+   regEdit = {} ;
 
   ngOnInit() {
      
@@ -47,12 +49,21 @@ export class SingleBatteryComponent implements OnInit {
 
   }
 
+
+  editRegeneration(data){
+    console.log(data);
+  }
+
+
+
+
    regenerationData(value){
 
   	console.log(value);
   	value.id = this.bid;
   	console.log(value);
-  	this.userService.addRegenerationDatabyId(value).map(res => res.json()).subscribe(data=>{
+  	this.userService.addRegenerationDatabyId(value)
+    .map(res => res.json()).subscribe(data=>{
          console.log(data);
      	if(data.success){
           window.location.reload();        

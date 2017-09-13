@@ -7,12 +7,16 @@ var Client = require('../models/client.js');
 router.post('/addClient',function(req,res){
 	console.log('inside addClient route')
 	var data = req.body;
-    console.log(data);
-    var client = new Client();
+    var client = new Client(data);
     // adding properties
-	client.name = data.name;
-	client.phone = data.phone;
-	client.address = data.address;
+	// client.name = data.name;
+	// client.contactPerson = data.contactPerson;
+	// client.jobTitle = data.jobTitle;
+	// client.contactNumber = data.contactNumber;
+	// client.mobileNumber = data.mobileNumber;
+	// client.address = data.address;
+
+
     // saving in to db
 	client.save(function(err,doc){
 		if(err){
