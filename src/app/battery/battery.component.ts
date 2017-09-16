@@ -18,12 +18,16 @@ export class BatteryComponent implements OnInit {
   oid;
   mid;
   batteries;
+  public loading = false;
+  
   
   ngOnInit() {
 
   	this.id = this.router.snapshot.params['id'];
   	this.oid = this.router.snapshot.params['oid'];
-  	this.mid = this.router.snapshot.params['mid']
+  	this.mid = this.router.snapshot.params['mid'];
+
+    this.loading = false;
 
     this.userService.getBatteriesByBatteryModelId(this.mid).map(res=> res.json()).subscribe(data=>{
         console.log(data);
@@ -43,6 +47,7 @@ export class BatteryComponent implements OnInit {
 
   add(value){
   	console.log(value);
+    this.loading = true;
 
   	var data = {
   		batterySerialNo : value.bs,
@@ -61,9 +66,11 @@ export class BatteryComponent implements OnInit {
   		if(data.success){
            this.ngOnInit();
             $('#myModal2').modal('hide');
+            this.loading = false;
   		}else{
            console.log('unable to save the data');
             $('#myModal2').modal('hide');
+            this.loading = false;
   		}
   	},err=>{
   		console.log(err);

@@ -1,15 +1,18 @@
   
 
 <div class="gray-bg">
-<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '14px' }"></ngx-loading>
+
+ <ngx-loading [show]="loading" [config]="{ 
+        backdropBackgroundColour: 'rgba(169,169,169,0.5)', backdropBorderRadius: '10px',
+        primaryColour: '#ffffff', secondaryColour: '#ffffff', tertiaryColour: '#ffffff' }"></ngx-loading>
 
 	<div class="middle-box text-center loginscreen animated fadeInDown">
 	        <div>
 	           
 
-	                <h1 class="logo-name">BMS</h1>
+	                <h1 class="logo-name">LMS</h1>
 
-	            <h3>Welcome to Battery Managment System</h3>
+	            <h3>Welcome to Lab Managment System</h3>
 	            <p>Login to access admin panel</p>
 
 	           <span class="badge-danger" *ngIf="error">{{ error }}</span>
@@ -26,12 +29,7 @@
                    
 	            </form>
 
-	            <div *ngIf="bar" class="progress">
-				  <div class="progress-bar progress-bar-primary progress-bar-striped active" role="progressbar"
-				  aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:100%">
-				    logging In (please wait)
-				  </div>
-				</div>
+	            
 
 	            
 	            <p class="m-t" style="padding-bottom: 150px;"> <small>Atrix Digital solutions &copy; 2017</small> </p>

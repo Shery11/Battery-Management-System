@@ -15,6 +15,7 @@ export class BatteryModelComponent implements OnInit {
 	id;
 	oid;
 	batteryModels;
+  public loading = false;
 
   constructor(private router : ActivatedRoute,private userService : UserService) { }
 
@@ -22,6 +23,7 @@ export class BatteryModelComponent implements OnInit {
 
   	this.id = this.router.snapshot.params['id'];
   	this.oid = this.router.snapshot.params['oid'];
+    this.loading = false;
 
   	console.log(this.id,this.oid);
 
@@ -42,6 +44,7 @@ export class BatteryModelComponent implements OnInit {
   }
 
   add(value){
+    this.loading = true;
   	console.log(value);
 
   	value.orderId = this.oid;
@@ -52,6 +55,7 @@ export class BatteryModelComponent implements OnInit {
          }else{
          	console.log('unable to save the data');
             $('#myModal2').modal('hide');
+            this.loading = false;
          }
   	},err=>{
   		console.log('unable to save the data');

@@ -13,12 +13,15 @@ export class OrdersComponent implements OnInit {
 
    orders;
    id; 
+   public loading = false;
+ 
       
   constructor(private route : ActivatedRoute, private userService : UserService) { }
 
   ngOnInit() {
      
-    this.id = this.route.snapshot.params['id'] 
+    this.id = this.route.snapshot.params['id']
+    this.loading = false; 
   	
   	this.userService.getOrdersByClientId(this.id).map(res=> res.json()).subscribe(data=>{
        console.log(data);
@@ -36,6 +39,7 @@ export class OrdersComponent implements OnInit {
 
 
   add(value){
+     this.loading = true; 
 
     value.clientId = this.id;
     console.log(value);
@@ -48,6 +52,7 @@ export class OrdersComponent implements OnInit {
        }else{
           console.log("unable to add data");
           $('#myModal2').modal('hide');
+          this.loading = false;
        }
     },err=>{
       console.log('unable to fetch data')

@@ -35,7 +35,7 @@ import { SingleBatteryComponent } from './single-battery/single-battery.componen
 
 import {InlineEditorModule} from 'ng2-inline-editor';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
-import { LoadingModule } from 'ngx-loading';
+import { LoadingModule, ANIMATION_TYPES } from 'ngx-loading';
 
 export const firebaseConfig = {
    apiKey: "AIzaSyBhoBZ9Zjr-5BySgE_sdIjVan_CA2b-rlM",
@@ -77,7 +77,14 @@ export const firebaseConfig = {
     HttpModule,
     Ng2SearchPipeModule,
     InlineEditorModule,
-    LoadingModule,
+     LoadingModule.forRoot({
+        animationType: ANIMATION_TYPES.wanderingCubes,
+        backdropBackgroundColour: 'rgba(255,255,255,0.5)', 
+        backdropBorderRadius: '4px',
+        primaryColour: '#ffffff', 
+        secondaryColour: '#ffffff', 
+        tertiaryColour: '#ffffff'
+    }),
     AngularFireModule.initializeApp(firebaseConfig),
     CookieModule.forRoot(),
     RouterModule.forRoot([

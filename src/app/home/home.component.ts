@@ -14,11 +14,14 @@ export class HomeComponent implements OnInit {
   constructor(private userService : UserService,private router: Router) { }
 
   clients;
+  public loading = false;
+ 
   
 
   ngOnInit() {
     
     console.log("initialized");
+    this.loading = false;
 
 
   	this.userService.getAllClients().map(res => res.json()).subscribe(data=>{
@@ -36,6 +39,7 @@ export class HomeComponent implements OnInit {
 
   add(value){
   	console.log(value);
+    this.loading = true;
 
   	var data = {
       name: value.name,
@@ -53,11 +57,14 @@ export class HomeComponent implements OnInit {
   	 	if(data.success){
             this.ngOnInit();
 
+
+
             $('#myModal2').modal('hide');
 
   	 	}else{
   	 		console.log("unable to add data");
          $('#myModal2').modal('hide');
+         
   	 	}
   	 },err=>{
        console.log(err);
