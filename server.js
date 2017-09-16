@@ -24,13 +24,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // Point static path to dist
 app.use(express.static(path.join(__dirname, 'dist')));
 
-// connecting mongo
-// mongoose.connect('mongodb://localhost/BMS', {
-//   useMongoClient: true,
-//    // other options 
-// }).then(function(db){
-// 	console.log('Connected to database');
-// });
+
 
 
 mongoose.connect('mongodb://dms:laughnplay@ds125914.mlab.com:25914/bms');

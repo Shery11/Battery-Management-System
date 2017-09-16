@@ -29,31 +29,38 @@
                         </div>
                     </div>
 
-                        <div class="ibox-content">
+                  <div class="ibox-content">
 
                    <div class="table-responsive">
                     <table class="table table-striped table-bordered table-hover dataTables-example" >
                     <thead>
                     <tr>
+                        
                         <th>Client Name</th>
-                        <th>Client Phone</th>
                         <th>Brand</th>
                         <th>Model</th>
                         <th>Amphere</th>
                         <th>Volt</th>
+                        <th>Status</th>
+                        <th>Dispatch Type</th>
                         <th>Created At</th>
+                        <th *ngIf="battery.dispatch">Dispatch Date</th>
                         
                     </tr>
                     </thead>
                     <tbody>
                     <tr class="gradeX" >
+                        
                         <td>{{battery.batteryClient.name}}</td>
-                        <td>{{battery.batteryClient.phone}}</td>
                         <td>{{battery.batteryModel.brand}}</td>
                         <td>{{battery.batteryModel.model}}</td>
                         <td>{{battery.batteryModel.amp}}</td>
                         <td>{{battery.batteryModel.volt}}</td>
+                        <td> <span class="label label-danger"> {{status}} </span></td>
+                        <td> <span class="label label-primary"> {{battery.dispatchType}}</span></td>
+
                         <td>{{battery.createdAt| date:"yMdjm"}}</td>
+                        <td *ngIf="battery.dispatch" >{{battery.dispatchDate| date:"yMdjm"}}</td>
                         
                        
                     </tr>
@@ -63,6 +70,8 @@
                         </div>
 
                     </div>
+
+               
 
 
                     <div class="ibox-title">
@@ -89,7 +98,7 @@
 
 
 
-                    <div class="ibox-content">
+                  <div class="ibox-content">
 
                    <div class="table-responsive">
                     <table class="table table-striped table-bordered table-hover dataTables-example" >
@@ -97,6 +106,9 @@
                     <tr>
                         <th>Battery Serial #</th>
                         <th>Lab Serial #</th>
+                        <th>Volt</th>
+                        <th>Resistance</th>
+                        <th>Remarks</th>
                        
                     </tr>
                     </thead>
@@ -104,6 +116,9 @@
                     <tr class="gradeX">
                         <td>{{battery.batterySerialNo}}</td>
                         <td>{{battery.labSerialNo}}</td>
+                        <td>{{battery.volt}}</td>
+                        <td>{{battery.resistance}}</td>
+                        <td>{{battery.remarks}}</td>
                        
                     </tr>
                     </tbody>
@@ -126,28 +141,38 @@
                             <td>Charge program</td>
                             <td>Charge Time</td>
                             <td>Created At</td>
-                            <td></td>
+                            <td>Edit</td>
                            </tr>
                            </thead>
 
 
                            <!--edit regeneration  -->
 
-                            <tbody>
+                            <tbody class="animated" *ngIf = "showReg">
                              <tr>
-                              <td>{{regEdit.startDate}}</td>
-                              <td>{{regEdit.endDate}}</td>
-                              <td>{{regEdit.programAuto}}</td>
-                              <td>{{regEdit.programManual}}</td>
-                              <td>{{regEdit.pulse}}</td>
-                              <td>{{regEdit.pause}}</td>
-                              <td>{{regEdit.chargeProgram}}</td>
-                              <td>{{regEdit.chargeTime}}</td>
+                              <td>
+                                <inline-editor type="text" [(ngModel)]="regEdit.startDate" (onSave)="saveEditable($event)" name="editableText1" size="8"></inline-editor>
+                              </td>
+                              <td>
+                                  <inline-editor type="text" [(ngModel)]="regEdit.endDate" (onSave)="saveEditable($event)" name="editableText1" size="8"></inline-editor>
+                                  </td>
+                              <td>
+                                <inline-editor type="text" [(ngModel)]="regEdit.programAuto" (onSave)="saveEditable($event)" name="editableText1" size="8"></inline-editor></td>
+                              <td>
+                              <inline-editor type="text" [(ngModel)]="regEdit.programManual" (onSave)="saveEditable($event)" name="editableText1" size="8"></inline-editor></td>
+                              <td>
+                              <inline-editor type="text" [(ngModel)]="regEdit.pulse" (onSave)="saveEditable($event)" name="editableText1" size="8"></inline-editor></td>
+                              <td>
+                                 <inline-editor type="text" [(ngModel)]="regEdit.pause" (onSave)="saveEditable($event)" name="editableText1" size="8"></inline-editor>
+                              </td>
+                              <td>
+                                <inline-editor type="text" [(ngModel)]="regEdit.chargeProgram" (onSave)="saveEditable($event)" name="editableText1" size="8"></inline-editor></td>
+                              <td>
+                                <inline-editor type="text" [(ngModel)]="regEdit.chargeTime" (onSave)="saveEditable($event)" name="editableText1" size="8"></inline-editor></td>
                               <td>{{regEdit.createdAt | date:"yMdjm"}}</td>
-                             </tr>
-                             <tr class="center">
+                             
                              <td>
-                              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal2">
+                              <button type="button" class="btn btn-primary" (click) = "saveEditRegeneration(regEdit)">
                                 Save 
                               </button>
                               </td>
@@ -168,7 +193,7 @@
 		                          <td>{{reg.chargeTime}}</td>
 		                          <td>{{reg.createdAt | date:"yMdjm"}}</td>
                               <td>
-                                <button type="button" class="btn btn-primary">
+                                <button (click) = "editRegeneration(reg)" type="button" class="btn btn-primary">
                                   Edit  
                                 </button>
                               </td>
@@ -204,10 +229,47 @@
                             <td>Start Time</td>
                             <td>End Time</td>
                             <td>Charger Used</td>
+                            <td>Gravity</td>
                             <td>Created At</td>
+                            <td>Edit</td>
                            </tr>
                            </thead>
                            <tbody>
+
+                              <tbody *ngIf = "showChar">
+                             <tr>
+                              <td>
+                                <inline-editor type="text" [(ngModel)]="charEdit.startVoltage" (onSave)="saveEditable($event)" name="editableText1" size="8"></inline-editor>
+                              </td>
+                              <td>
+                                  <inline-editor type="text" [(ngModel)]="charEdit.endVoltage" (onSave)="saveEditable($event)" name="editableText1" size="8"></inline-editor>
+                                  </td>
+                              <td>
+                                <inline-editor type="text" [(ngModel)]="charEdit.startCurrent" (onSave)="saveEditable($event)" name="editableText1" size="8"></inline-editor></td>
+                              <td>
+                              <inline-editor type="text" [(ngModel)]="charEdit.endCurrent" (onSave)="saveEditable($event)" name="editableText1" size="8"></inline-editor></td>
+                              <td>
+                              <inline-editor type="text" [(ngModel)]="charEdit.startTime" (onSave)="saveEditable($event)" name="editableText1" size="8"></inline-editor></td>
+                              <td>
+                                 <inline-editor type="text" [(ngModel)]="charEdit.endTime" (onSave)="saveEditable($event)" name="editableText1" size="8"></inline-editor>
+                              </td>
+                              <td>
+                                <inline-editor type="text" [(ngModel)]="charEdit.charger" (onSave)="saveEditable($event)" name="editableText1" size="8"></inline-editor></td>
+                               <td>
+                                 <inline-editor type="text" [(ngModel)]="charEdit.gravity" (onSave)="saveEditable($event)" name="editableText1" size="8"></inline-editor></td>
+                              
+                              <td>{{charEdit.createdAt | date:"yMdjm"}}</td>
+                             
+                             <td>
+                              <button type="button" class="btn btn-primary" (click) = "saveEditCharging(charEdit)">
+                                Save 
+                              </button>
+                              </td>
+                             </tr>
+
+                           </tbody>
+                           
+
 	                           <tr *ngFor="let charge of charging">
 	                            <td>{{charge.startVoltage}}</td>
                               <td>{{charge.endVoltage}}</td>
@@ -216,8 +278,14 @@
                               <td>{{charge.startTime}}</td>
                               <td>{{charge.endTime}}</td>
                               <td>{{charge.charger}}</td>
+                              <td>{{charge.gravity}}</td>
                               <td>
                               {{charge.createdAt | date:"yMdjm"}}</td>
+                               <td>
+                                <button (click) = "editCharging(charge)" type="button" class="btn btn-primary">
+                                  Edit  
+                                </button>
+                              </td>
 	                           </tr>
 	                           <tr class="center">
                              <td>
@@ -250,9 +318,47 @@
                             <td>End Time</td>
                             <td>Discharger Used</td>
                             <td>Capacity</td>
+                            <td>Gravity</td>
                             <td>Created At</td>
+                            <td>Edit</td>
                            </tr>
                            </thead>
+
+                              <tbody *ngIf = "showDis">
+                             <tr>
+                              <td>
+                                <inline-editor type="text" [(ngModel)]="disEdit.startVoltage" (onSave)="saveEditable($event)" name="editableText1" size="8"></inline-editor>
+                              </td>
+                              <td>
+                                  <inline-editor type="text" [(ngModel)]="disEdit.endVoltage" (onSave)="saveEditable($event)" name="editableText1" size="8"></inline-editor>
+                                  </td>
+                              <td>
+                                <inline-editor type="text" [(ngModel)]="disEdit.startCurrent" (onSave)="saveEditable($event)" name="editableText1" size="8"></inline-editor></td>
+                              <td>
+                              <inline-editor type="text" [(ngModel)]="disEdit.endCurrent" (onSave)="saveEditable($event)" name="editableText1" size="8"></inline-editor></td>
+                              <td>
+                              <inline-editor type="text" [(ngModel)]="disEdit.startTime" (onSave)="saveEditable($event)" name="editableText1" size="8"></inline-editor></td>
+                              <td>
+                                 <inline-editor type="text" [(ngModel)]="disEdit.endTime" (onSave)="saveEditable($event)" name="editableText1" size="8"></inline-editor>
+                              </td>
+                              <td>
+                                <inline-editor type="text" [(ngModel)]="disEdit.discharger" (onSave)="saveEditable($event)" name="editableText1" size="8"></inline-editor></td>
+                              <td>
+                                <inline-editor type="text" [(ngModel)]="disEdit.capacity" (onSave)="saveEditable($event)" name="editableText1" size="8"></inline-editor></td>
+                               <td>
+                                 <inline-editor type="text" [(ngModel)]="disEdit.gravity" (onSave)="saveEditable($event)" name="editableText1" size="8"></inline-editor></td>
+                              
+                              <td>{{disEdit.createdAt | date:"yMdjm"}}</td>
+                             
+                             <td>
+                              <button type="button" class="btn btn-primary" (click) = "saveEditDischarging(disEdit)">
+                                Save 
+                              </button>
+                              </td>
+                             </tr>
+
+                           </tbody>
+
                            <tbody>
 	                           <tr *ngFor="let dis of discharging">
 	                            <td>{{dis.startVoltage}}</td>
@@ -263,8 +369,15 @@
                               <td>{{dis.endTime}}</td>
                               <td>{{dis.discharger}}</td>
                               <td>{{dis.capacity}} %</td>
+                              <td>{{dis.gravity}}</td>
+                             
 		                          <td>
                               {{dis.createdAt | date:"yMdjm"}}</td>
+                               <td>
+                                <button (click) = "editDischarging(dis)" type="button" class="btn btn-primary">
+                                  Edit  
+                                </button>
+                              </td>
 	                           </tr>
 	                           <tr class="center">
                              <td>
@@ -280,6 +393,17 @@
                            </div>
 
                            </div>
+
+
+                            <div class="ibox-content" >
+
+                         
+                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal5">
+                        Dispatch  
+                </button>
+
+                
+                </div>
 
                     </div>
                 </div>
@@ -382,17 +506,11 @@
                                                         <div class="form-group"><label>End Time</label> <input type="text" placeholder="End Time" class="form-control" name="et" ngModel></div>
 
                                                          
-                                                          <div class="form-group"><label>Charger Used</label><select class="form-control m-b" name="c" ngModel>
-                                                          <option>Gravity 1</option>
-                                                          <option>Gravity 2</option>
-                                                          <option>Gravity 3</option>
-                                                          <option>Gravity 4</option>
-                                                          <option>Gravity 5</option>
-                                                          <option>Gravity 6</option>
+                                                          <div class="form-group"><label>Charger Used</label><input type="text" placeholder="Charger Used" class="form-control" name="c" ngModel></div>
 
-                                                         
-                                                          </select>
-                                                          </div>
+                                                           <div class="form-group"><label>Gravity</label><input type="text" placeholder="Gravity" class="form-control" name="gravity" ngModel></div>
+
+
                                                
                                                          <div>
                                                        
@@ -449,19 +567,11 @@
 
                                                         <div class="form-group"><label>End Time</label> <input type="text" placeholder="End Time" class="form-control" name="et" ngModel></div>
 
-                                                        <div class="form-group"><label>Charger Used</label><select class="form-control m-b" name="d" ngModel>
-                                                          <option>Gravity 1</option>
-                                                          <option>Gravity 2</option>
-                                                          <option>Gravity 3</option>
-                                                          <option>Gravity 4</option>
-                                                          <option>Gravity 5</option>
-                                                          <option>Gravity 6</option>
+                                                        <div class="form-group"><label>Discharger Used</label> <input type="text" placeholder="Discharger Used" class="form-control" name="d" ngModel></div>
 
-                                                         
-                                                        </select>
-                                                        </div>
+                                                        <div class="form-group"><label>Gravity</label><input type="text" placeholder="Gravity" class="form-control" name="gravity" ngModel></div>
 
-                                                          <div class="form-group"><label>Capacity</label> <input type="text" placeholder="Capacity in %" class="form-control" name="c" ngModel></div>
+                                                        <div class="form-group"><label>Capacity</label> <input type="text" placeholder="Capacity in %" class="form-control" name="c" ngModel></div>
 
 
 
@@ -490,6 +600,48 @@
                                     </div>
                                 </div>
                             </div>
+
+
+
+    <div class="modal inmodal" id="myModal5" tabindex="-1" role="dialog" aria-hidden="true">
+                              <div class="modal-dialog">
+                                    <div class="modal-content animated flipInY">
+                                        <div class="modal-body">
+                                            <div class="row">
+                                                <div class="col-sm-12"><h3 class="m-t-none m-b">Dispatch this battery</h3>
+
+                                                    <p>This process is irrevirsible</p>
+
+                                                    <form role="form" #dataForm3 = "ngForm" (ngSubmit) = "dispatchData(dataForm3.value)" >
+                                                        
+                                                        <div class="form-group"><label class="col-sm-3 control-label">Dispatch Type</label>
+                                                         <!-- add ngModel -->
+                                                          <div class="col-sm-9"><select class="form-control m-b" name="dispatchType" ngModel>
+                                                              <option value="good">Good</option>
+                                                              <option value="bad">Bad</option>
+                                                          </select>
+
+                                                              
+                                                          </div>
+                                                      </div>
+                                                        
+                                                        <div>
+                                                        <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><strong>Confirm</strong></button>
+                                                           
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                             
+                                        </div>
+                                    </div>
+                                     <div class="modal-footer">
+                                            <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
 
 
 

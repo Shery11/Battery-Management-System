@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { UserService } from '../user.service';
 import { Router } from '@angular/router';
 
+declare var $ :any;
 
 @Component({
   selector: 'app-home',
@@ -13,10 +14,12 @@ export class HomeComponent implements OnInit {
   constructor(private userService : UserService,private router: Router) { }
 
   clients;
+  
 
   ngOnInit() {
     
     console.log("initialized");
+
 
   	this.userService.getAllClients().map(res => res.json()).subscribe(data=>{
        console.log(data);
@@ -48,9 +51,13 @@ export class HomeComponent implements OnInit {
   	 this.userService.addNewClient(data).map(res=> res.json()).subscribe(data=>{
   	 	console.log(data);
   	 	if(data.success){
-            window.location.reload();
+            this.ngOnInit();
+
+            $('#myModal2').modal('hide');
+
   	 	}else{
-  	 		console.log("unable to add data")
+  	 		console.log("unable to add data");
+         $('#myModal2').modal('hide');
   	 	}
   	 },err=>{
        console.log(err);

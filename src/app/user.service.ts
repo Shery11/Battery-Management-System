@@ -69,11 +69,26 @@ export class UserService {
        return this.http.post('http://localhost:3000/battery/addRegenerationDatabyId',data)
      }
 
+
+     updateRegenerationDataById(data){
+       console.log(data);
+       
+       return this.http.post('http://localhost:3000/battery/updateRegenerationDatabyId',data);
+       
+     }
+
      addDischargingDatabyId(data){
 
        console.log(data);
 
        return this.http.post('http://localhost:3000/battery/addDischargingDatabyId',data)
+     }
+
+     updateDischargingDatabyId(data){
+
+       console.log(data);
+
+       return this.http.post('http://localhost:3000/battery/updateDischargingDatabyId',data)
      }
 
 
@@ -83,6 +98,20 @@ export class UserService {
 
        return this.http.post('http://localhost:3000/battery/addChargingDatabyId',data)
 
+     }
+
+     updateChargingDatabyId(data){
+
+        console.log(data);
+
+       return this.http.post('http://localhost:3000/battery/updateChargingDatabyId',data)
+
+     }
+
+     updateDispatchDatabyBatteryId(data){
+       console.log(data);
+
+       return this.http.post('http://localhost:3000/battery/updateDispatchDatabyBatteryId',data);
      }
 
 }

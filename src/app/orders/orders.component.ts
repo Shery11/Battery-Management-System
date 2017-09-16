@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router, Params ,ActivatedRoute} from '@angular/router'
 import { UserService } from '../user.service';
 
+declare var $ :any;
+
 @Component({
   selector: 'app-orders',
   templateUrl: './orders.component.html',
@@ -41,9 +43,11 @@ export class OrdersComponent implements OnInit {
     this.userService.addNewOrder(value).map(res => res.json()).subscribe(data=>{
       console.log(data);
        if(data.success){
-           window.location.reload();
+           this.ngOnInit();
+           $('#myModal2').modal('hide');
        }else{
           console.log("unable to add data");
+          $('#myModal2').modal('hide');
        }
     },err=>{
       console.log('unable to fetch data')

@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router, Params ,ActivatedRoute} from '@angular/router'
 import { UserService } from '../user.service';
 
+declare var $ :any;
+
+
 @Component({
   selector: 'app-battery',
   templateUrl: './battery.component.html',
@@ -46,15 +49,21 @@ export class BatteryComponent implements OnInit {
   		labSerialNo : value.ls,
   		batteryModel: this.mid,
   		batteryOrder: this.oid,
-  		batteryClient : this.id
+      batteryClient : this.id,
+      volt : value.volt,
+      resistance : value.resistance,
+      remarks : value.remarks
+
   	}
 
   	this.userService.addNewBattery(data).map(res=> res.json()).subscribe(data => {
   		console.log(data);
   		if(data.success){
-           window.location.reload();
+           this.ngOnInit();
+            $('#myModal2').modal('hide');
   		}else{
-           console.log('unable to save the data')
+           console.log('unable to save the data');
+            $('#myModal2').modal('hide');
   		}
   	},err=>{
   		console.log(err);

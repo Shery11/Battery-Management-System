@@ -33,8 +33,9 @@ import { BatteryModelComponent } from './battery-model/battery-model.component';
 import { BatteryComponent } from './battery/battery.component';
 import { SingleBatteryComponent } from './single-battery/single-battery.component';
 
-
+import {InlineEditorModule} from 'ng2-inline-editor';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { LoadingModule } from 'ngx-loading';
 
 export const firebaseConfig = {
    apiKey: "AIzaSyBhoBZ9Zjr-5BySgE_sdIjVan_CA2b-rlM",
@@ -75,6 +76,8 @@ export const firebaseConfig = {
     FormsModule,
     HttpModule,
     Ng2SearchPipeModule,
+    InlineEditorModule,
+    LoadingModule,
     AngularFireModule.initializeApp(firebaseConfig),
     CookieModule.forRoot(),
     RouterModule.forRoot([

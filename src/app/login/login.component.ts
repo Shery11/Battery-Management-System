@@ -5,7 +5,6 @@ import { Router } from '@angular/router';
 import {CookieService } from 'ngx-cookie';
 import { UserService } from '../user.service';
 
-declare var jquery:any;
 declare var $ :any;
 
 @Component({
@@ -15,8 +14,11 @@ declare var $ :any;
 })
 export class LoginComponent implements OnInit {
 
+  
+
 	error;
   bar = false;
+  public loading = false;
  
  
   ngOnInit() {
@@ -32,14 +34,17 @@ export class LoginComponent implements OnInit {
     onSubmit(value) {
 
       this.bar = true;
+      this.loading = true;
 	    
 	    this.authService.login(value.email, value.password).then(res => {
         this.router.navigateByUrl('/dashboard');
         console.log(res.uid);
+        this.loading = false;
         this.cookie.put('token',res.uid);
 
       }).catch(err => {
          this.bar = false
+         this.loading = false;
         this.error = err.message
         setTimeout(()=>{
            this.error = false;

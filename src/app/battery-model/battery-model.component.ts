@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router, Params ,ActivatedRoute} from '@angular/router'
 import { UserService } from '../user.service';
 
+declare var $ :any;
+
+
 @Component({
   selector: 'app-battery-model',
   templateUrl: './battery-model.component.html',
@@ -42,14 +45,13 @@ export class BatteryModelComponent implements OnInit {
   	console.log(value);
 
   	value.orderId = this.oid;
-
-  	// console.log(value);
-     
   	this.userService.addNewBatteryModel(value).map(res =>res.json()).subscribe(data=>{
          if(data.success){
-         	window.location.reload();
+         	this.ngOnInit();
+            $('#myModal2').modal('hide');
          }else{
-         	console.log('unable to save the data')
+         	console.log('unable to save the data');
+            $('#myModal2').modal('hide');
          }
   	},err=>{
   		console.log('unable to save the data');
