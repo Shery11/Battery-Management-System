@@ -202,6 +202,7 @@
                                                         <th>#</th>
                                                         <th>Battery Serial #</th>
                                                         <th>Lab Serial #</th>
+                                                        <td>Remove</td>
                                                         
                                                         
                                                     </tr>
@@ -212,6 +213,7 @@
                                                         <td>{{i+1}}</td>
                                                         <td>{{battery.batterySerialNo}}</td>
                                                         <td>{{battery.labSerialNo}}</td>
+                                                        <td><a  (click)="removeFromBulk(i)"><span class="label label-warning"><i class="fa fa-times"></i></span></a></td>
                                                        
                                                        
                                                     </tr>
@@ -221,6 +223,7 @@
                                                         <th>#</th>
                                                         <th>Battery Serial #</th>
                                                         <th>Lab Serial #</th>
+                                                        <th>Remove</th>
                                                        
                                                     
                                                     </tr>
@@ -234,7 +237,7 @@
 
                                                         <div class="form-group col-sm-6"><label>Battery Serial #</label> <input type="text" placeholder="Battery Serial #" class="form-control" name="bs" [(ngModel)]="batterySerialNo" ></div>
 
-                                                        <div class="form-group col-sm-6"><label>Lab Serial #</label> <input type="text" placeholder="Lab Serial #" class="form-control" name="ls" [(ngModel)]="labSerialNo" ></div>
+                                                        <div class="form-group col-sm-6"><label>Lab Serial #</label> <input type="text" placeholder="Lab Serial #" class="form-control" name="ls" [(ngModel)]="labSerialNo"></div>
                                                       
                                                         
                                                         <div>

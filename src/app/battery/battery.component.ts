@@ -193,4 +193,13 @@ export class BatteryComponent implements OnInit {
 
     }
 
+
+
+    removeFromBulk(data){
+
+        console.log(data);
+       this.batteriesBulk.splice(data,1);
+
+    }
+
 }
