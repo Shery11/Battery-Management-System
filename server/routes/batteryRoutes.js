@@ -336,6 +336,7 @@ router.post('/updateStatusbyBatteryId',function(req,res){
 
 
 router.post('/saveBulkBatteries',function(req,res){
+  
   console.log('inside saveBulkBatteries')
   var data = req.body;
 
@@ -389,15 +390,30 @@ router.post('/saveBulkBatteries',function(req,res){
         })
 
     
-
-    
-
-
 }
 
+})
+
+
+
+router.post('/deleteBattery',function(req,res){
+   
+   console.log('inside deleteBattery')  
+   console.log(req.body.id);
+  
+   Battery.remove({ _id: req.body.id }, function(err) {
+      if (err) {
+             res.json({success:false,data:err});
+      }
+      else {
+        res.json({success:true,data:"Batteries deleted Successfully"});
+      }
+   }); 
 
 
 })
+
+
 
 
 module.exports = router;

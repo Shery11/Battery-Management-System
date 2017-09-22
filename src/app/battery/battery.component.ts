@@ -202,4 +202,29 @@ export class BatteryComponent implements OnInit {
 
     }
 
+
+    delete(id){
+      this.loading = true;
+      console.log(id);
+      this.userService.deleteBattery(id).map(res=> res.json()).subscribe(data=>{
+         console.log(data);
+       if(data.success){
+         console.log(data);
+          this.ngOnInit();
+          
+          
+        }else{
+         
+         console.log('unable to dispatch try again');
+         this.loading = false;
+
+       }
+    },err=>{
+        console.log(err);
+        this.loading = false;
+     })
+
+
+    }
+
 }

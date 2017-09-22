@@ -100,6 +100,7 @@
                         <th>Edit</th>
                         <th>Dispatch</th>
                         <th>Dispatch Date</th>
+                        <th>Delete</th>
                         
                     </tr>
                     </thead>
@@ -112,12 +113,15 @@
                         <td>{{battery.volt}}</td>
                         <td>{{battery.resistance}}</td>
                         <td>{{battery.remarks}}</td>
-                         <td> <span class="label label-danger"> {{battery.dispatch}} </span></td>
+                         <td><span *ngIf="battery.dispatch" class="label label-danger">Dispatched  </span>
+                         <span *ngIf="!battery.dispatch" class="label label-danger">In Lab  </span>
+                         </td>
                         <td> <span class="label label-primary"> {{battery.dispatchType}}</span></td>
                         <td class="center">{{battery.createdAt| date:"yMdjm"}}</td>
                         <td class="center"><a  [routerLink]="['/dashboard/orders/'+ id +'/'+ oid+'/'+ mid + '/' + battery._id ]"><span class="label label-warning"><i class="fa fa-cog"></i></span></a></td>
                         <td ><button [disabled]="battery.dispatch ||  battery.dispatchType === 'pending' "  (click) = "status(battery)" class="label label-info">Dispatch</button></td>
                         <td>{{battery.dispatchDate | date:"yMdjm"}}</td>
+                        <td><button (click) = "delete(battery._id)" class="label label-danger">X</button></td>
                        
                     </tr>
                     </tbody>
@@ -135,6 +139,7 @@
                         <th>Edit</th>
                         <th>Dispatch</th>
                         <th>Dispatch Date</th>
+                        <th>Delete</th>
                     
                     </tr>
                     </tfoot>

@@ -128,4 +128,13 @@ export class UserService {
          return this.http.post('http://localhost:3000/battery/saveBulkBatteries',data);
      }
 
+     deleteBattery(id){
+
+       var data = {
+          id:id
+        }
+
+        return this.http.post('http://localhost:3000/battery/deleteBattery',data);
+     }
+
 }
