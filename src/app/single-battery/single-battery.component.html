@@ -398,8 +398,8 @@
                             <div class="ibox-content" >
 
                          
-                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal5">
-                        Dispatch  
+                 <button [disabled] = "battery.dispatchType === 'good' || battery.dispatchType === 'bad' " type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal5">
+                        Dispatch Type  
                 </button>
 
                 

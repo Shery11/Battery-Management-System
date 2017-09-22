@@ -23,7 +23,6 @@ export class LoginComponent implements OnInit {
  
   ngOnInit() {
 
-
   }
 
 
@@ -38,7 +37,7 @@ export class LoginComponent implements OnInit {
 	    
 	    this.authService.login(value.email, value.password).then(res => {
         this.router.navigateByUrl('/dashboard');
-        console.log(res.uid);
+        console.log(res);
         this.loading = false;
         this.cookie.put('token',res.uid);
 

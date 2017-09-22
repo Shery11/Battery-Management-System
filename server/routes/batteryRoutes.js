@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
+
 var Battery = require('../models/battery.js');
 
 // for adding a battery we will need the id of client, batterymodel and order
@@ -98,9 +99,9 @@ router.post('/addRegenerationDatabyId',function(req,res){
         programAuto : data.programAuto,
         programManual : data.programManual,
         pulse : data.pulse,
-    	pause : data.pause,
-    	chargeProgram : data.chargeProgram,
-    	chargeTime : data.chargeTime,
+      	pause : data.pause,
+      	chargeProgram : data.chargeProgram,
+      	chargeTime : data.chargeTime
     	
 	}
     
@@ -300,15 +301,29 @@ router.post('/updateChargingDatabyId',function(req,res){
 
 })
 
-
-
-
 router.post('/updateDispatchDatabyBatteryId',function(req,res){
   console.log('inside updateDispatchDatabyBatteryId')
    var data = req.body;
+   
+
+    Battery.findOneAndUpdate({ _id : data.id},{$set:{dispatchType:data.dispatchType}},{new: true},function(err,battery){
+        if(err){
+          console.log('error occured');
+          res.json({success:false,data:err})
+        }else{
+          res.json({success:true, data: battery})
+        }
+    })
+
+});
+
+
+router.post('/updateStatusbyBatteryId',function(req,res){
+  console.log('inside updateStatusbyBatteryId')
+   var data = req.body;
    data.dispatchDate = new Date();
 
-    Battery.findOneAndUpdate({ _id : data.id},{$set:{dispatch:data.dispatch,dispatchType:data.dispatchType,dispatchDate:data.dispatchDate}},{new: true},function(err,battery){
+    Battery.findOneAndUpdate({ _id : data.id},{$set:{dispatch:data.dispatch,dispatchDate:data.dispatchDate}},{new: true},function(err,battery){
         if(err){
           console.log('error occured');
           res.json({success:false,data:err})
@@ -318,6 +333,71 @@ router.post('/updateDispatchDatabyBatteryId',function(req,res){
   })
 
 });
+
+
+router.post('/saveBulkBatteries',function(req,res){
+  console.log('inside saveBulkBatteries')
+  var data = req.body;
+
+  console.log(data);
+
+  if(data.batteriesBulk.length === 0){
+     res.json({success:false,data:"Add some batteries"});
+  }else if(data.volt === null){
+     res.json({success:false,data:"Voltage not set"});
+  }else if(data.resistance === null){
+    res.json({success:false,data:"Resistance not set"});
+  }else{
+
+    // res.json({success:true,data:"Every thing is good"});
+     
+     var batteries = [];
+
+     
+     for(var i = 0; i < data.batteriesBulk.length; i++){
+          
+         
+
+         var battery = new Battery({
+            batterySerialNo : data.batteriesBulk[i].batterySerialNo,
+            labSerialNo : data.batteriesBulk[i].labSerialNo,
+            volt: data.volt,
+            resistance : data.resistance,
+            batteryModel : data.batteryModel, 
+            batteryOrder : data.batteryOrder,
+            batteryClient : data.batteryClient    
+
+         });
+
+         console.log(battery);
+         batteries.push(battery);
+
+          
+
+        }
+
+
+        console.log(batteries);
+
+        Battery.insertMany(batteries,function(err,docs){
+          if(err){
+            res.json({success:false,data:err});
+          }else{
+            res.json({success:true,data:"Batteries added"});
+          }
+
+        })
+
+    
+
+    
+
+
+}
+
+
+
+})
 
 
 module.exports = router;

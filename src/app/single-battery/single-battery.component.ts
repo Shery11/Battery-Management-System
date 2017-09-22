@@ -244,8 +244,7 @@ export class SingleBatteryComponent implements OnInit {
 
   dispatchData(value){
     console.log(value);
-
-    value.dispatch = true;
+  
     value.id = this.bid;
 
     console.log(value);

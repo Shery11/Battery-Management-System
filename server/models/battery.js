@@ -3,11 +3,12 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var BatterySchema = new Schema({
+   
     batterySerialNo : {type: String, required : true},
     labSerialNo:{ type:String, required:true },
     volt:{ type:String, required:true },
     resistance:{ type:String, required:true },
-    remarks:{ type:String, required:true },
+    remarks:{ type:String},
     dispatch: {type: Boolean , default:false},
     dispatchType : {type:String,enum: ['good', 'bad','pending'],default:'pending'},
     dispatchDate: {type: Date},

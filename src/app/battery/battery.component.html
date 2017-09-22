@@ -1,6 +1,6 @@
-<p>
-  battery works!
-</p>
+<ngx-loading [show]="loading" [config]="{ 
+        backdropBackgroundColour: 'rgba(169,169,169,0.5)', backdropBorderRadius: '10px',
+        primaryColour: '#ffffff', secondaryColour: '#ffffff', tertiaryColour: '#ffffff' }"></ngx-loading>
 
 <div class="wrapper wrapper-content animated fadeInRight">
             <div class="row">
@@ -98,6 +98,9 @@
                         <th>Dispatch Type</th>
                         <th>Created At</th>
                         <th>Edit</th>
+                        <th>Dispatch</th>
+                        <th>Dispatch Date</th>
+                        
                     </tr>
                     </thead>
                     <tbody>
@@ -112,7 +115,9 @@
                          <td> <span class="label label-danger"> {{battery.dispatch}} </span></td>
                         <td> <span class="label label-primary"> {{battery.dispatchType}}</span></td>
                         <td class="center">{{battery.createdAt| date:"yMdjm"}}</td>
-                        <td class="center"><a  [routerLink]="['/dashboard/orders/'+ id +'/'+ oid+'/'+ mid + '/' + battery._id ]"><span class="label label-warning" ><i class="fa fa-cog"></i></span></a></td>
+                        <td class="center"><a  [routerLink]="['/dashboard/orders/'+ id +'/'+ oid+'/'+ mid + '/' + battery._id ]"><span class="label label-warning"><i class="fa fa-cog"></i></span></a></td>
+                        <td ><button [disabled]="battery.dispatch ||  battery.dispatchType === 'pending' "  (click) = "status(battery)" class="label label-info">Dispatch</button></td>
+                        <td>{{battery.dispatchDate | date:"yMdjm"}}</td>
                        
                     </tr>
                     </tbody>
@@ -128,6 +133,8 @@
                         <th>Dispatch Type</th>
                         <th>Created At</th>
                         <th>Edit</th>
+                        <th>Dispatch</th>
+                        <th>Dispatch Date</th>
                     
                     </tr>
                     </tfoot>
@@ -135,10 +142,125 @@
                         </div>
 
                     </div>
+
+
+                <div class="ibox-content" >
+
+                         
+                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal5">
+                        Bulk Battery Addition  
+                </button>
+
+                
+                </div>
                 </div>
             </div>
             </div>
         </div>
+        </div>
+
+
+
+         <div class="modal inmodal" id="myModal5" tabindex="-1" role="dialog" aria-hidden="true">
+                              <div class="modal-dialog">
+                                    <div class="modal-content animated flipInY">
+                                    <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                            <h4 class="modal-title">Add Batteries</h4>
+                                            <small class="font-bold">Scan and Add</small>
+                                        </div>
+                                        <div class="modal-body">
+
+                                         <div class="row">
+                                                <div class="col-sm-12"><h3 class="m-t-none m-b"></h3>
+
+                                                     <form>
+
+                                                        <div class="form-group col-sm-6"><label>Volt</label> <input [disabled]= "disableVolt" type="text" placeholder="Volt" class="form-control" name="bs" [(ngModel)]="volt" ></div>
+
+                                                        <div class="form-group col-sm-6"><label>Resistance</label> <input [disabled]= "disableResistance" type="text" placeholder="Resistance" class="form-control" name="ls" [(ngModel)]="resistance" ></div>
+                                                      
+                                                        
+                                                        <div>
+                                                       
+                                                            <button class="btn btn-sm btn-primary pull-right m-t-n-xs" (click)="disableVoltandResistance()"><strong>Set</strong></button>
+                                                           
+                                                        </div>
+                                                    </form>
+
+                                                  
+
+                                                </div>
+                                             
+                                        </div>
+                                            <div class="row">
+
+                                               <div class="table-responsive">
+                                                    <table class="table table-striped table-bordered table-hover dataTables-example" >
+                                                    <thead>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>Battery Serial #</th>
+                                                        <th>Lab Serial #</th>
+                                                        
+                                                        
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr class="gradeX" *ngFor="let battery of batteriesBulk 
+                                                    let i = index ">
+                                                        <td>{{i+1}}</td>
+                                                        <td>{{battery.batterySerialNo}}</td>
+                                                        <td>{{battery.labSerialNo}}</td>
+                                                       
+                                                       
+                                                    </tr>
+                                                    </tbody>
+                                                    <tfoot>
+                                                     <tr>
+                                                        <th>#</th>
+                                                        <th>Battery Serial #</th>
+                                                        <th>Lab Serial #</th>
+                                                       
+                                                    
+                                                    </tr>
+                                                    </tfoot>
+                                                    </table>
+                                                </div>
+
+                                                <div class="col-sm-12"><h3 class="m-t-none m-b"></h3>
+
+                                                     <form>
+
+                                                        <div class="form-group col-sm-6"><label>Battery Serial #</label> <input type="text" placeholder="Battery Serial #" class="form-control" name="bs" [(ngModel)]="batterySerialNo" ></div>
+
+                                                        <div class="form-group col-sm-6"><label>Lab Serial #</label> <input type="text" placeholder="Lab Serial #" class="form-control" name="ls" [(ngModel)]="labSerialNo" ></div>
+                                                      
+                                                        
+                                                        <div>
+                                                       
+                                                            <button class="btn btn-sm btn-primary pull-right m-t-n-xs" (click)="addtoBulk()"><strong>Add</strong></button>
+                                                           
+                                                        </div>
+                                                    </form>
+
+                                                  
+
+                                                </div>
+                                             
+                                        </div>
+                                        
+                                    </div>
+                                     <div class="modal-footer">
+                                            <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="saveBulkToDatabase()" >Submit</button>
+
+                                            <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
 
 
 

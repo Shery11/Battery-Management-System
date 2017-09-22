@@ -114,4 +114,18 @@ export class UserService {
        return this.http.post('http://localhost:3000/battery/updateDispatchDatabyBatteryId',data);
      }
 
+     updateStatusbyBatteryId(data){
+
+       console.log(data);
+
+       return this.http.post('http://localhost:3000/battery/updateStatusbyBatteryId',data);
+
+     }
+
+     saveBulkBatteries(data){
+         console.log(data);
+         
+         return this.http.post('http://localhost:3000/battery/saveBulkBatteries',data);
+     }
+
 }
